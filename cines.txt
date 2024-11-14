@@ -1,12 +1,83 @@
+- Creando la tabla CINES.
 CREATE TABLE CINES(IdCine int not null primary key auto_increment, nombre varchar(50), direccion varchar(100), zona varchar(30), ingreso decimal(15, 2));
+- Resultado.
+DESC CINES;
++-----------+---------------+------+-----+---------+----------------+
+| Field     | Type          | Null | Key | Default | Extra          |
++-----------+---------------+------+-----+---------+----------------+
+| IdCine    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50)   | YES  |     | NULL    |                |
+| direccion | varchar(100)  | YES  |     | NULL    |                |
+| zona      | varchar(30)   | YES  |     | NULL    |                |
+| ingreso   | decimal(15,2) | YES  |     | NULL    |                |
++-----------+---------------+------+-----+---------+----------------+
+- Insert de datos.
 INSERT INTO CINES VALUES(1, "Cine 1", "Direccion 1", "Centro", 100000), (2, "Cine 2", "Direccion 2", "Centro", 500000), (3, "Cine 3", "Direccion 3", "Norte", 200000), (4, "Cine 4", "Direccion 4", "Norte", 1000000), (5, "Cine 5", "Direccion 5", "Norte", 1100000), (6, "Cine 6", "Direccion 6", "Sur", 700000), (7, "Cine 7", "Direccion 7", "Sur", 800000), (8, "Cine 8", "Direccion 8", "Oriente", 600000), (9, "Cine 9", "Direccion 9", "Oriente", 200000);
+- Resultado.
+SELECT * FROM CINES;
++--------+--------+-------------+---------+------------+
+| IdCine | nombre | direccion   | zona    | ingreso    |
++--------+--------+-------------+---------+------------+
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |
++--------+--------+-------------+---------+------------+
 
+- Creando la tabla SALAS.
 CREATE TABLE SALAS(numSalasActivas int(5));
+- Agregando la columna IdCine.
 ALTER TABLE SALAS ADD IdCine int;
+- Creando la relacion entre las tablas SALAS y CINES.
 ALTER TABLE SALAS ADD CONSTRAINT fk_IdCine foreign key (IdCine) references CINES(IdCine);
+- Resultado.
+DESC SALAS;
++-----------------+---------+------+-----+---------+-------+
+| Field           | Type    | Null | Key | Default | Extra |
++-----------------+---------+------+-----+---------+-------+
+| numSalasActivas | int(5)  | YES  |     | NULL    |       |
+| IdCine          | int(11) | YES  | MUL | NULL    |       |
++-----------------+---------+------+-----+---------+-------+
+-Insert de datos.
 INSERT INTO SALAS VALUES(15, 2), (4, 4), (6, 6), (10, 8);
+-Resultado.
+SELECT * FROM SALAS;
++-----------------+--------+
+| numSalasActivas | IdCine |
++-----------------+--------+
+|              15 |      2 |
+|               4 |      4 |
+|               6 |      6 |
+|              10 |      8 |
++-----------------+--------+
 
+- Creando la tabla de PELICULAS.
 CREATE TABLE PELICULAS(numPeliculas int(5));
+- Agregando la columna IdCine.
 ALTER TABLE PELICULAS ADD IdCine int;
+- Creando la relacion entre las tablas CINES y PELICULAS.
 ALTER TABLE PELICULAS ADD CONSTRAINT fk_IdCine2 foreign key (IdCine) references CINES(IdCine);
+- Resultado.
+DESC PELICULAS;
++--------------+---------+------+-----+---------+-------+
+| Field        | Type    | Null | Key | Default | Extra |
++--------------+---------+------+-----+---------+-------+
+| numPeliculas | int(5)  | YES  |     | NULL    |       |
+| IdCine       | int(11) | YES  | MUL | NULL    |       |
++--------------+---------+------+-----+---------+-------+
+- Insert de datos.
 INSERT INTO PELICULAS VALUES(40, 2), (15, 6), (10, 8);
+- Resultado.
+SELECT * FROM PELICULAS;
++--------------+--------+
+| numPeliculas | IdCine |
++--------------+--------+
+|           40 |      2 |
+|           15 |      6 |
+|           10 |      8 |
++--------------+--------+
