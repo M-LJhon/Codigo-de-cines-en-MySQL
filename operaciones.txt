@@ -92,3 +92,62 @@ SELECT * FROM CINES WHERE IdCine IN(SELECT IdCine FROM CINES WHERE ingreso >= 50
 |      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |
 |      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |
 +--------+--------+-------------+---------+------------+
+
+## PRODUCTO CARTESIANO
+- Usamos un Cross Join para combinar la tabla CINES con SALAS.
+SELECT * FROM CINES CROSS JOIN SALAS;
+- Resultado.
++--------+--------+-------------+---------+------------+-----------------+--------+
+| IdCine | nombre | direccion   | zona    | ingreso    | numSalasActivas | IdCine |
++--------+--------+-------------+---------+------------+-----------------+--------+
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |              15 |      2 |
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |               4 |      4 |
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |               6 |      6 |
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |              10 |      8 |
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |              15 |      2 |
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |               4 |      4 |
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |               6 |      6 |
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |              10 |      8 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |              15 |      2 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |               4 |      4 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |               6 |      6 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |              10 |      8 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |              15 |      2 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |               4 |      4 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |               6 |      6 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |              10 |      8 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |              15 |      2 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |               4 |      4 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |               6 |      6 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |              10 |      8 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |              15 |      2 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |               4 |      4 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |               6 |      6 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |              10 |      8 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |              15 |      2 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |               4 |      4 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |               6 |      6 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |              10 |      8 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |              15 |      2 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |               4 |      4 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |               6 |      6 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |              10 |      8 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |              15 |      2 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |               4 |      4 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |               6 |      6 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |              10 |      8 |
++--------+--------+-------------+---------+------------+-----------------+--------+
+
+- El siguiente Query realiza un cross Join solo con las tuplas cuyos IdCine son iguales a la otra tabla.
+SELECT * FROM CINES CROSS JOIN SALAS WHERE CINES.IdCine = SALAS.IdCine;
+- Resultado.
++--------+--------+-------------+---------+------------+-----------------+--------+
+| IdCine | nombre | direccion   | zona    | ingreso    | numSalasActivas | IdCine |
++--------+--------+-------------+---------+------------+-----------------+--------+
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |              15 |      2 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |               4 |      4 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |               6 |      6 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |              10 |      8 |
++--------+--------+-------------+---------+------------+-----------------+--------+
+
+## RENOMBRAMIENTO.
