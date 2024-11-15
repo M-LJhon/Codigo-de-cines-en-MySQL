@@ -150,4 +150,3 @@ SELECT * FROM CINES CROSS JOIN SALAS WHERE CINES.IdCine = SALAS.IdCine;
 |      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |              10 |      8 |
 +--------+--------+-------------+---------+------------+-----------------+--------+
 
-## RENOMBRAMIENTO.

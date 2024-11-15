@@ -103,4 +103,62 @@ SELECT * FROM CINES LEFT JOIN PELICULAS ON zona = "Centro" UNION SELECT * FROM C
 ## DIVISION.
 
 ## ASIGNACION.
+- Se crea una relacion temporal y en ella se almacena el resultado de la consulta.
+CREATE TEMPORARY TABLE S AS SELECT * FROM SALAS WHERE numSalasActivas >= 10;
+- Resultado.
+SELECT * FROM S;
++-----------------+--------+
+| numSalasActivas | IdCine |
++-----------------+--------+
+|              15 |      2 |
+|              10 |      8 |
++-----------------+--------+
+- Proyectamos S pero solo el IdCine para almacenarlo en una variable S1.
+CREATE TEMPORARY TABLE S1 AS SELECT IdCine FROM S;
+- Resultado.
+SELECT * FROM S1;
++--------+
+| IdCine |
++--------+
+|      2 |
+|      8 |
++--------+
+SELECT * FROM CINES WHERE IdCine IN (SELECT IdCine FROM S1);
+- Resultado.
++--------+--------+-------------+---------+-----------+
+| IdCine | nombre | direccion   | zona    | ingreso   |
++--------+--------+-------------+---------+-----------+
+|      2 | Cine 2 | Direccion 2 | Centro  | 500000.00 |
+|      8 | Cine 8 | Direccion 8 | Oriente | 600000.00 |
++--------+--------+-------------+---------+-----------+
 
+# AGRUPACION.
+- Calcular el ingreso promedio segun la zona.
+SELECT zona, AVG(ingreso) AS PROM FROM CINES GROUP BY zona;
++---------+---------------+
+| zona    | PROM          |
++---------+---------------+
+| Centro  | 300000.000000 |
+| Norte   | 766666.666667 |
+| Oriente | 400000.000000 |
+| Sur     | 750000.000000 |
++---------+---------------+
+
+# OPERACION DE ORDENAMIENTO.
+- Ordenar los registros por Zona y los ingresos de forma descendente.
+SELECT * FROM CINES ORDER BY zona ASC, ingreso DESC;
++--------+--------+-------------+---------+------------+
+| IdCine | nombre | direccion   | zona    | ingreso    |
++--------+--------+-------------+---------+------------+
+|      2 | Cine 2 | Direccion 2 | Centro  |  500000.00 |
+|      1 | Cine 1 | Direccion 1 | Centro  |  100000.00 |
+|      5 | Cine 5 | Direccion 5 | Norte   | 1100000.00 |
+|      4 | Cine 4 | Direccion 4 | Norte   | 1000000.00 |
+|      3 | Cine 3 | Direccion 3 | Norte   |  200000.00 |
+|      8 | Cine 8 | Direccion 8 | Oriente |  600000.00 |
+|      9 | Cine 9 | Direccion 9 | Oriente |  200000.00 |
+|      7 | Cine 7 | Direccion 7 | Sur     |  800000.00 |
+|      6 | Cine 6 | Direccion 6 | Sur     |  700000.00 |
++--------+--------+-------------+---------+------------+
+
+# 
